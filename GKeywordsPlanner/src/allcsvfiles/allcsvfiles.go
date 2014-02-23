@@ -7,14 +7,14 @@ import (
 	
 )
 
-func GetAll(golog syslog.Writer, dir string) []string {
+func GetAll(golog syslog.Writer, dir string,locale string, themes string) []string {
 
 	var filesarr []string
 	var rootdir string
 
 	if dir == "" {
 
-		rootdir = "csvfiles/"
+		rootdir = "csvfiles/"+locale+"_"+themes+"/"
 
 	} else {
 
@@ -30,8 +30,6 @@ func GetAll(golog syslog.Writer, dir string) []string {
 		for _, fl := range dr {
 
 			flname := fl.Name()
-			
-//			fldir := fl.
 			
 			if strings.HasSuffix(flname, ".csv") {
 			

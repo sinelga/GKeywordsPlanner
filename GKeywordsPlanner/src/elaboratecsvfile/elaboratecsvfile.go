@@ -201,8 +201,6 @@ func Elaborate(golog syslog.Writer, csvfile string) map[string]domains.GoogleAds
 
 		if !strings.HasSuffix(splitedstrarr[0], "Ad group") && !strings.HasSuffix(splitedstrarr[0], "Seed Keywords") {
 
-//			fmt.Println(splitedstrarr[1], splitedstrarr[2], splitedstrarr[3], splitedstrarr[4])
-
 			phrase := splitedstrarr[1]	
 			var avgmonthlysearch int =0
 			if splitedstrarr[3] != "" {

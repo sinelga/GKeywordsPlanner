@@ -36,6 +36,7 @@ func GetPhraseFromDB(golog syslog.Writer, locale string, themes string) map[stri
 			var avgmonthlysearch int
 			var competition float64
 			var suggestedbid float64
+			
 			rows.Scan(&phrase, &avgmonthlysearch, &competition, &suggestedbid)
 
 			var googleAdsVal domains.GoogleAdsVal
