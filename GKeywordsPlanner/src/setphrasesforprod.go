@@ -8,6 +8,7 @@ import (
 	"log"
 	"log/syslog"
 	"os"
+	"time"
 )
 
 var localeFlag = flag.String("locale", "", "must be fi_FI/en_US/it_IT")
@@ -28,6 +29,8 @@ func main() {
 	golog.Info("Start setphrasesforprod" + locale + " " + themes)
 
 	var allphrasesmap map[string]struct{}
+	
+	timenow := int64(time.Now().Unix())*1000
 
 	db, err := sql.Open("sqlite3", "/home/juno/git/goFastCgi/goFastCgi/singo.db")
 	defer db.Close()
@@ -94,13 +97,13 @@ func main() {
 
 		for key := range allphrasesmap {
 
-			stmt, err = tx.Prepare("insert into phrases('Phrase' ,'Locale','Themes') values(?,?,?)")
+			stmt, err = tx.Prepare("insert into phrases('Phrase' ,'Locale','Themes','Created','Updated') values(?,?,?,?,?)")
 			if err != nil {
 				golog.Err(err.Error())
 			}
 			defer stmt.Close()
 
-			if _, err = stmt.Exec(key, locale, themes); err != nil {
+			if _, err = stmt.Exec(key, locale, themes,timenow,timenow); err != nil {
 				golog.Crit(err.Error())
 				os.Exit(1)
 
